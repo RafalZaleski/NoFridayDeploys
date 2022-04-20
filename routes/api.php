@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\V1\CompanyController;
+use App\Http\Controllers\V1\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function() {
+	Route::apiResource('companies', CompanyController::class);
+	Route::apiResource('companies/{companyId}/employees', EmployeeController::class);
 });

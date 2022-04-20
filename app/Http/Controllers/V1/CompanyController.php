@@ -14,7 +14,7 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\JsonResource
      */
     public function index(): JsonResource
     {
@@ -25,7 +25,7 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\V1\StoreCompanyRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\V1\CompanyResource
      */
     public function store(StoreCompanyRequest $request): CompanyResource
     {
@@ -38,7 +38,7 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\V1\CompanyResource
      */
     public function show(Company $company): CompanyResource
     {
@@ -50,7 +50,7 @@ class CompanyController extends Controller
      *
      * @param  \App\Http\Requests\V1\UpdateCompanyRequest  $request
      * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\V1\CompanyResource
      */
     public function update(UpdateCompanyRequest $request, Company $company): CompanyResource
     {
@@ -63,7 +63,7 @@ class CompanyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy(Company $company): void
     {

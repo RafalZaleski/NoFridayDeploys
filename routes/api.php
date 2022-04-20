@@ -17,5 +17,10 @@ use App\Http\Controllers\V1\EmployeeController;
 
 Route::prefix('v1')->group(function() {
 	Route::apiResource('companies', CompanyController::class);
-	Route::apiResource('companies/{companyId}/employees', EmployeeController::class);
+	Route::apiResource('companies.employees', EmployeeController::class);
+});
+
+Route::fallback(function(){
+    return response()->json([
+        'error' => 'Nieobsługiwany endpoint api.'], 404);
 });

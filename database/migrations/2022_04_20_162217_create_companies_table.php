@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->integer('nip');
+            $table->string('nip', 20);
             $table->string('address', 255);
             $table->string('city', 255);
-            $table->integer('postal_code');
+            $table->string('postal_code', 20);
             $table->timestamps();
         });
     }

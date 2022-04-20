@@ -11,9 +11,9 @@ class StoreEmployeeRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,13 +21,13 @@ class StoreEmployeeRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'require',
-            'surname' => 'require',
-            'email' => 'require',
-            'phone_number' => '',
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            'email' => 'required|email:rfc,dns|max:255',
+            'phone_number' => 'max:20',
         ];
     }
 }

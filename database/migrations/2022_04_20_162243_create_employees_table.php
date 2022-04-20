@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('surname', 255);
             $table->string('email', 255);
-            $table->integer('phone_number')->nullable();
+            $table->string('phone_number')->nullable();
             $table->timestamps();
             $table->foreignIdFor(\App\Models\Company::class, 'company_id');
         });

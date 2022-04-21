@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Employee;
 use App\Http\Requests\V1\StoreEmployeeRequest;
 use App\Http\Requests\V1\UpdateEmployeeRequest;
@@ -31,6 +32,11 @@ class EmployeeController extends Controller
      */
     public function store(int $companyId, StoreEmployeeRequest $request): EmployeeResource
     {
+		$company = Company::where('id', $companyId)->first();
+		if (!$company) {
+			abort(404);
+		}
+		
 		$employeeData = $request->all();
 		$employeeData['company_id'] = $companyId;
         $employee = Employee::create($employeeData);
@@ -49,7 +55,9 @@ class EmployeeController extends Controller
     {
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
-		if (!$employee) abort(404);
+		if (!$employee) {
+			abort(404);
+		}
 		
         return new EmployeeResource($employee);
     }
@@ -66,7 +74,9 @@ class EmployeeController extends Controller
     {
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
-		if (!$employee) abort(404);
+		if (!$employee) {
+			abort(404);
+		}
 		
         $employee->update($request->all());
 		
@@ -84,7 +94,9 @@ class EmployeeController extends Controller
     {
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
-		if (!$employee) abort(404);
+		if (!$employee) {
+			abort(404);
+		}
 		
         $employee->delete();
     }

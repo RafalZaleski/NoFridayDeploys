@@ -9,6 +9,7 @@ use App\Http\Requests\V1\StoreEmployeeRequest;
 use App\Http\Requests\V1\UpdateEmployeeRequest;
 use App\Http\Resources\V1\EmployeeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 
 class EmployeeController extends Controller
 {
@@ -20,7 +21,7 @@ class EmployeeController extends Controller
      */
     public function index(int $companyId): JsonResource
     {
-        return EmployeeResource::collection(Employee::all()->where('company_id', $companyId));
+        return EmployeeResource::collection(Employee::where('company_id', $companyId)->get());
     }
 
     /**
@@ -34,7 +35,7 @@ class EmployeeController extends Controller
     {
 		$company = Company::where('id', $companyId)->first();
 		if (!$company) {
-			abort(404);
+			abort(Response::HTTP_BAD_REQUEST);
 		}
 		
 		$employeeData = $request->all();
@@ -56,7 +57,7 @@ class EmployeeController extends Controller
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
 		if (!$employee) {
-			abort(404);
+			abort(Response::HTTP_BAD_REQUEST);
 		}
 		
         return new EmployeeResource($employee);
@@ -75,7 +76,7 @@ class EmployeeController extends Controller
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
 		if (!$employee) {
-			abort(404);
+			abort(Response::HTTP_BAD_REQUEST);
 		}
 		
         $employee->update($request->all());
@@ -95,7 +96,7 @@ class EmployeeController extends Controller
 		$employee = Employee::where(['company_id' => $companyId, 'id' => $employeeId])->first();
 		
 		if (!$employee) {
-			abort(404);
+			abort(Response::HTTP_BAD_REQUEST);
 		}
 		
         $employee->delete();
